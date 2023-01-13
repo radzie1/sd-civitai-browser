@@ -11,7 +11,7 @@ from tqdm import tqdm
 import re
 from requests.exceptions import ConnectionError
 
-import axel
+import pyaxel
 
 def download_file(url, file_name):
     # Maximum number of retries
@@ -22,7 +22,7 @@ def download_file(url, file_name):
 
     while True:
         try:
-            axel.download(url, file_name)
+            pyaxel.download(url, file_name)
             print(f"{file_name} successfully downloaded.")
             break
         except:
