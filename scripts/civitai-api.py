@@ -11,7 +11,7 @@ from tqdm import tqdm
 import re
 from requests.exceptions import ConnectionError
 
-import pyaxel
+from aria2p import API
 
 def download_file(url, file_name):
     # Maximum number of retries
@@ -22,7 +22,11 @@ def download_file(url, file_name):
 
     while True:
         try:
-            pyaxel.download(url, file_name)
+            aria2 = API(
+                host="http://localhost", port=8081
+            )
+            gid = aria2.add_uris([url], options={"out": file_name})
+            aria2.wait_for_download(gid)
             print(f"{file_name} successfully downloaded.")
             break
         except:
